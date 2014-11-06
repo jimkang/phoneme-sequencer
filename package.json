@@ -1,0 +1,31 @@
+{
+  "name": "phoneme-sequencer",
+  "version": "1.0.0",
+  "description": "Generates phoneme sequences.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test",
+    "postinstall": "cd node_modules/phonemenon && make phoneme-follow-frequencies-in-syllables.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimkang/phoneme-sequencer.git"
+  },
+  "keywords": [
+    "phoneme",
+    "sequence",
+    "words"
+  ],
+  "author": "Jim Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimkang/phoneme-sequencer/issues"
+  },
+  "homepage": "https://github.com/jimkang/phoneme-sequencer",
+  "devDependencies": {
+    "mocha": "~1.18.2"
+  },
+  "dependencies": {
+    "phonemenon": "^1.1.0"
+  }
+}
