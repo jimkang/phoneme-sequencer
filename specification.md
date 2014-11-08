@@ -6,7 +6,7 @@ getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
 
   > Given:
 
-  - **getFollowerTable** returns a rangeTable object that maps ranges to follower phonemes. (Probably going to commonly be curried.)
+  - **getFollowerTable(phoneme)** returns a rangeTable object that maps ranges to follower phonemes. (Will commonly be curried.)
     - The `rangeTable` object has the methods defined in [probable's createRangeTable](https://github.com/jimkang/probable/blob/master/probable.js#L19).
   e.g. `getFollowerTable('ZH')` returns a range table with contents like this:
 
@@ -37,3 +37,35 @@ getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
 
   - It creates `followerTable` by calling `getFollowerTable` with `phoneme`.
   - It returns the value of `chooseFromTable(followerTable, seed)`.
+
+getFollowerTableForPhoneme(probable, phonemeFollowFreqMap, phoneme)
+-----
+This function follows the `getFollowerTable` specification.
+
+  > Given:
+
+- `probable` is a module like [probable](https://github.com/jimkang/probable).
+- `phoneme` is a string representing a phoneme as in cmudict.0.7a.phones.txt. The pseudophonemes 'START' and 'END' are also valid values.
+- `phonemeFollowFreqMap` (will commonly be curried) is a map that maps key phonemes to phonemes that follow them (as observed in a corpus) along with the number of times the follower has been observed following the key phoneme. e.g.:
+
+      {
+        "EH": {
+          "K": 2479,
+          "N": 3607,
+          "S": 1709,
+          "F": 258,
+          "END": 11849,
+          "TH": 83,
+          ...
+        },
+        "K": {
+          "S": 2675,
+          "END": 12195,
+          "L": 997,
+          ...
+        }
+      }
+
+> Then:
+
+- Returns `probable.createRangeTableFromDict` with `phonemeFollowFreqMap` to get a **rangeTable**. The range table should list all of the most frequent followers first and the least frequent ones last. TODO: Update probable to do this.
