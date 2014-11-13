@@ -1,9 +1,7 @@
 Specification
 =============
 
-TODO: This should all be async.
-
-getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
+getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed, done)
 --------
 
   > Given:
@@ -34,13 +32,14 @@ getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
   - **chooseFromTable(table, seed)** is a function that chooses from a `rangeTable`. It can assume that the rangeTable is arranged from high probability to low probability. It may or may not use the given `seed`. (Probably going to commonly be curried.)
   - **phoneme** is a phoneme for which the function will find a follower.
   - **seed** is a number that can be used to decide which sequence should be picked.
+  - **done** is a standard callback that takes `error` and `phoneme` (the resulting phoneme).
 
 > Then:
 
   - It creates `followerTable` by calling `getFollowerTable` with `phoneme`.
-  - It returns the value of `chooseFromTable(followerTable, seed)`.
+  - It calls back with the value of `chooseFromTable(followerTable, seed)`.
 
-getAntecedentTableForPhoneme(probable, phonemeFollowFreqMap, phoneme)
+getAntecedentTableForPhoneme(probable, phonemeFollowFreqMap, phoneme, done)
 -----
 This function follows the `getFollowerTable` specification.
 
@@ -68,17 +67,18 @@ This function follows the `getFollowerTable` specification.
       }
 
 - `phoneme` is a string representing a phoneme as in cmudict.0.7a.phones.txt. The pseudophonemes 'START' and 'END' are also valid values.
+- **done** is a standard callback that takes `error` and `table` (the result).
 
 > Then:
 
-- Returns `probable.createRangeTableFromDict` with `phonemeFollowFreqMap` to get a **rangeTable**. The range table should list all of the most frequent followers first and the least frequent ones last. TODO: Update probable to do this.
+- Calls back with the result of `probable.createRangeTableFromDict` with `phonemeFollowFreqMap` to get a **rangeTable**. The range table should list all of the most frequent followers first and the least frequent ones last. TODO: Update probable to do this.
 
-getNextPhoneme(chooseFromTable, phoneme, seed)
-----------------------------------------------
+getNextPhoneme(chooseFromTable, phoneme, seed, done)
+----------------------------------------------------
 
 This is `getFollowingPhoneme`, curried with `getAntecedentTableForPhoneme` for the getFollowerTable param.
 
-getPrevPhoneme(chooseFromTable, phoneme, seed)
----------------------------------------------------
+getPrevPhoneme(chooseFromTable, phoneme, seed, done)
+----------------------------------------------------
 
 This is `getFollowingPhoneme`, curried with `getPrecedentTableForPhoneme` for the getFollowerTable param.
