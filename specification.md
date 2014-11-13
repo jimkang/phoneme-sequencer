@@ -1,6 +1,13 @@
 Specification
 =============
 
+All method params will be described in the spec as a list, but in practice, they will be keys in an options object. e.g. `say(guys, words)` will be implemented as `say(opts)`, where opts will look like:
+
+    {
+      guys: ['Bonus Cat', 'Dr. Wily'],
+      words: ['ohay', 'guys']
+    }
+
 getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed, done)
 --------
 
