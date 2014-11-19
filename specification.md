@@ -46,7 +46,7 @@ getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
   - It creates `followerTable` by calling `getFollowerTable` with `phoneme`.
   - It returns the value of `chooseFromTable(followerTable, seed)`.
 
-getAntecedentTableForPhoneme(probable, phonemeFollowFreqMap, phoneme, done)
+getAntecedentTableForPhoneme(probable, phonemeFollowFreqMap, phoneme)
 -----
 This function follows the `getFollowerTable` specification.
 
@@ -74,11 +74,15 @@ This function follows the `getFollowerTable` specification.
       }
 
 - `phoneme` is a string representing a phoneme as in cmudict.0.7a.phones.txt. The pseudophonemes 'START' and 'END' are also valid values.
-- **done** is a standard callback that takes `error` and `table` (the result).
 
 > Then:
 
-- Calls back with the result of `probable.createRangeTableFromDict` with `phonemeFollowFreqMap` to get a **rangeTable**. The range table should list all of the most frequent followers first and the least frequent ones last. TODO: Update probable to do this.
+- Returns the result of `probable.createRangeTableFromDict` with `phonemeFollowFreqMap` to get a **rangeTable**. The range table should list all of the most frequent followers first and the least frequent ones last. TODO: Update probable to do this.
+
+getPrecedentTableForPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
+-----------------------------------------------------------------------------------
+
+This is just like getAntecedentTableForPhoneme, except that it maps phonemes to the phonemes that precede them, rather than those that follow them.
 
 getNextPhoneme(chooseFromTable, phoneme, seed, done)
 ----------------------------------------------------
