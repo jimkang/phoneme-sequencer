@@ -93,3 +93,42 @@ getPrevPhoneme(chooseFromTable, phoneme, seed, done)
 ----------------------------------------------------
 
 This is `getFollowingPhoneme`, curried with `getPrecedentTableForPhoneme` for the getFollowerTable param.
+
+createSyllableDomain(chooseFromNextTable, chooseFromPrevTable)
+--------
+
+Returns a 'domain' object that provides builds of `getNextPhoneme` and `getPrevPhoneme` derived from information about how phonemes follow each other (and precede each other) with the boundaries of syllables.
+
+**syllable domain methods**:
+- `next(phoneme, seed, done)`
+  - This method is a build of `getNextPhoneme` that has `chooseFromTable` curried with a syllable-oriented implementation.
+- `prev(phoneme, seed, done)`
+    - This is a build `getPrevPhoneme` with a curried `chooseFromTable`.
+- `createChain(initialPhoneme)`
+    - Returns a convenience object with the methods:
+      - `phoneme()`
+        - Returns phoneme that the cursor is currently pointing to.
+      - `next()`
+        - Moves the cursor to the next phoneme, then returns that phoneme. If there is already a next phoneme, it points the cursor to that. If there isn't, it will call `chooseFromNextTable` to get it and add to the phonemes in the chain. If the current phoneme is `END`, it will return `null`.
+      - `prev()`
+        - Moves the cursor to the previous phoneme, then returns that phoneme. If there is already a previous phoneme, it points the cursor to that. If there isn't, it will call `chooseFromPrevTable` to get it and add to the phonemes in the chain. If the current phoneme is `START`, it will return `null`.
+      - `phonemesThusFar`
+        - Returns the array of phonemes that have been built into the chain.
+      - `expandsToEnds`
+        - Calls `next()` until it reaches `END`, then calls `prev()` until it reaches `START`, then returns the result of `phonemesThusFar()`.
+    - Usage example:
+
+          var phonemeChain = syllableDomain.createChain('EH');
+          phonemeChain.next(); // 'K'
+          phonemeChain.next(); // 'S'
+          phonemeChain.prev(); // 'K'
+          phonemeChain.prev(); // 'EH'
+          phonemeChain.prev(); // 'L'
+          phonemeChain.prev(); // 'START'
+          phonemeChain.prev(); // null
+          phonemeChain.phomemesThusFar(); ['START', 'L', 'EH', 'K', 'S']
+
+          var chain2 = syllableDomain.createChain('AH');
+          chain2.expandToEnds(); // ['START', 'B', 'AH', 'N', 'S', 'END']
+
+Thoretically, there could be other domains, like wordDomain, that worked with frequencies across entire words, disregarding syllable boundaries.
