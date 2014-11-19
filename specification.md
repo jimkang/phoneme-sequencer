@@ -8,7 +8,7 @@ All method params will be described in the spec as a list, but in practice, they
       words: ['ohay', 'guys']
     }
 
-getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed, done)
+getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
 --------
 
   > Given:
@@ -44,7 +44,7 @@ getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed, done)
 > Then:
 
   - It creates `followerTable` by calling `getFollowerTable` with `phoneme`.
-  - It calls back with the value of `chooseFromTable(followerTable, seed)`.
+  - It returns the value of `chooseFromTable(followerTable, seed)`.
 
 getAntecedentTableForPhoneme(probable, phonemeFollowFreqMap, phoneme, done)
 -----
