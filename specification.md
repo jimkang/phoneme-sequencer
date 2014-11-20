@@ -33,8 +33,8 @@ getFollowingPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
             5: "W",
             4: "D",
             4: "UH",
-            3: 'AY',
-            1: 'AE'
+            3: "AY",
+            1: "AE"
           ]
   - **chooseFromTable(table, seed)** is a function that chooses from a `rangeTable`. It can assume that the rangeTable is arranged from high probability to low probability. It may or may not use the given `seed`. (Probably going to commonly be curried.)
   - **phoneme** is a phoneme for which the function will find a follower.
