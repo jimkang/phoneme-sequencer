@@ -84,12 +84,12 @@ getPrecedentTableForPhoneme(getFollowerTable, chooseFromTable, phoneme, seed)
 
 This is just like getAntecedentTableForPhoneme, except that it maps phonemes to the phonemes that precede them, rather than those that follow them.
 
-getNextPhoneme(chooseFromTable, phoneme, seed, done)
+getNextPhoneme(chooseFromTable, phoneme, seed)
 ----------------------------------------------------
 
 This is `getFollowingPhoneme`, curried with `getAntecedentTableForPhoneme` for the getFollowerTable param.
 
-getPrevPhoneme(chooseFromTable, phoneme, seed, done)
+getPrevPhoneme(chooseFromTable, phoneme, seed)
 ----------------------------------------------------
 
 This is `getFollowingPhoneme`, curried with `getPrecedentTableForPhoneme` for the getFollowerTable param.
@@ -100,9 +100,9 @@ createSyllableDomain(chooseFromNextTable, chooseFromPrevTable)
 Returns a 'domain' object that provides builds of `getNextPhoneme` and `getPrevPhoneme` derived from information about how phonemes follow each other (and precede each other) with the boundaries of syllables.
 
 **syllable domain methods**:
-- `next(phoneme, seed, done)`
+- `next(phoneme, seed)`
   - This method is a build of `getNextPhoneme` that has `chooseFromTable` curried with a syllable-oriented implementation.
-- `prev(phoneme, seed, done)`
+- `prev(phoneme, seed)`
     - This is a build `getPrevPhoneme` with a curried `chooseFromTable`.
 - `chooseFromNextTable` - The chooseFromNextTable passed to the constructor.
 - `chooseFromPrevTable` - The chooseFromPrevTable passed to the constructor.
