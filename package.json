@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/jimkang/phoneme-sequencer",
   "devDependencies": {
-    "mocha": "~1.18.2"
+    "mocha": "~1.18.2",
+    "sinon": "^1.10.3"
   },
   "dependencies": {
     "phonemenon": "^1.1.0"
