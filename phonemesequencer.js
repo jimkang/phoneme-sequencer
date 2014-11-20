@@ -2,10 +2,24 @@
 // createSyllableDomain(chooseFromNextTable, chooseFromPrevTable)
 
 function createSyllableDomain(opts) {
+  function next() {
+
+  }
+
+  function prev() {
+
+  }
+
+  function createChain() {
+
+  }
 
   return {
     chooseFromNextTable: opts.chooseFromNextTable,
-    chooseFromPrevTable: opts.chooseFromPrevTable
+    chooseFromPrevTable: opts.chooseFromPrevTable,
+    next: next,
+    prev: prev,
+    createChain: createChain
   };
 }
 
