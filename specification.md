@@ -104,6 +104,8 @@ Returns a 'domain' object that provides builds of `getNextPhoneme` and `getPrevP
   - This method is a build of `getNextPhoneme` that has `chooseFromTable` curried with a syllable-oriented implementation.
 - `prev(phoneme, seed, done)`
     - This is a build `getPrevPhoneme` with a curried `chooseFromTable`.
+- `chooseFromNextTable` - The chooseFromNextTable passed to the constructor.
+- `chooseFromPrevTable` - The chooseFromPrevTable passed to the constructor.
 - `createChain(initialPhoneme)`
     - Returns a convenience object with the methods:
       - `phoneme()`
