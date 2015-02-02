@@ -13,16 +13,19 @@ Usage
 
     var sequencer = require('phoneme-sequencer');
 
-    var sequence = sequencer.createSequence();
-    while (sequence.next(seed, filter));
-    return sequence.getPhonemes();
+    var seq = sequencer.completeSequence(
+      {
+        base: ['START', 'L'] // Does not have to include 'START' or 'END'
+        boundary: 'syllable' // or 'word'
+        seed: 800
+      }
+    );
 
-    Get first
-    Get next(previous)
-    Get next(previous)
-    done
+    console.log(seq);
 
-TODO: post-build step with phenemenon.
+    // ['START', 'L', 'EH', 'K', 'S', 'END']
+
+TODO: post-build step with phonemenon.
 
 [Specification](specification.md)
 -----------
