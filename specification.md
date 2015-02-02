@@ -3,27 +3,30 @@ Specification
 
 All method params will be described in the spec as a list, but in practice, they will be keys in an options object.
 
-createSequencer(phonemeFrequencyMap)
+createSequenceCompleter(chooseNext, choosePrev)
 ------------------------------------
 
-completeSequence(base, boundary, seed)
+> Given:
+
+- chooseNext: function (phoneme)
+- Returns the phoneme that should go after the given phoneme.
+- choosePrev: function (phoneme)
+- Returns the phoneme that should go after the given phoneme.
+
+> Then:
+
+- Saves `chooseNext` and `choosePrev` if they are given, otherwise creates them with `createChooseNext` and `createChoosePrev`.
+- Returns `completeSequence`, which has scope access to `chooseNext` and `choosePrev`.
+
+completeSequence(base)
+----------------------
 
 > Given:
 
 - base: An array of phonemes, which can include 'START' and 'END'.
-- boundary: 'syllable' or 'word'
-- seed: A number used to make arbitrary choices.
-
-Optional (defaults will be provided):
-
-- chooseNext: function (phoneme)
-  - Returns the phoneme that should go after the given phoneme.
-- choosePrev: function (phoneme)
-  - Returns the phoneme that should go after the given phoneme.
 
 > Then:
 
-- Fills in `chooseNext` and `choosePrev` with `createChooseNext` and `createChoosePrev` if they are not provided.
 - Until it reaches 'END', does the following, starting with the the last element in `base`:
   - Picks a phoneme using `chooseNext`.
   - Adds that phoneme to the new sequence.
@@ -45,3 +48,6 @@ createChoosePrev(seed)
 ----------------------
 
 Does the same thing as `createChooseNext` except that it uses `phoneme-preceding-frequencies-in-syllables.js` instead.
+
+
+TODO: Store probability table data as arrays of ranges, not dictionaries.
