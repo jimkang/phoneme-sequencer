@@ -35,14 +35,18 @@ completeSequence(base)
   - Adds that phoneme to the front of the new sequence.
 - Returns the new sequence.
 
-createChooseNext(seed)
+createChooseNext(random, followFreqsData)
 ----------------------
 
-- Creates a [seedrandom](https://github.com/davidbau/seedrandom) generator named `seedRandom` if seed is defined.
-- Creates `followFreqsTable` (a dictionary of `probable` range tables) using probable and `phoneme-follow-frequencies-in-syllables.js`.
+> Given:
+- `random` is a function that returns a value between 0 and 1, like Math.random or [seedrandom](https://github.com/davidbau/seedrandom).
+- `followFreqsData` is something like `phoneme-follow-frequencies-in-syllables.js`
+
+> Then:
+- Creates a `probable` instance using `random`.
+- Creates `followFreqsTable` (a dictionary of `probable` range tables) using probable and `followFreqsData`.
 - Returns a function (phoneme) that:
-  - Returns the next phoneme by calling `followFreqsTable[phoneme].roll()` if `seedRandom` is undefined.
-  - Returns the next phoneme by calling `followFreqsTable[phoneme].outcomeAtIndex(Math.floor(seedRandom() * followFreqsTable[phoneme].length))` if `seedRandom` is undefined.
+  - Returns the next phoneme by calling `followFreqsTable[phoneme].roll()`;
 
 createChoosePrev(seed)
 ----------------------
@@ -51,3 +55,21 @@ Does the same thing as `createChooseNext` except that it uses `phoneme-preceding
 
 
 TODO: Store probability table data as arrays of ranges, not dictionaries.
+
+TODO: Restrictions needed on chooser:
+- Do not pick two consecutive vowel phonemes.
+- Pick closing phonemes in the family specified. e.g. avoid rhyming "C AA P" "K AA R T". "K AA T" would be OK, though. I guess that's a hard consonant vs. a soft one (T vs. R)?
+
+So, for ['AA'], this could yield something like K AA N Z, which maps to the workds:
+
+ZIRCONS
+ICAHN'S
+MICHCON'S
+KAHN'S
+KHAN'S
+KONZ
+NITHUEKAN'S
+PECANS(2)
+AFRIKAANS
+CAEN'S(1)
+CONS
