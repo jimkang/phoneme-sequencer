@@ -1,5 +1,8 @@
-test:
+test: test-choose
 	node tests/sequencertests.js
+
+test-choose: data/phoneme-follow-frequencies-in-syllables.js data/phoneme-preceding-frequencies-in-syllables.js
+	node tests/choosenexttests.js
 
 data/phoneme-follow-frequencies-in-syllables.js:
 	cd node_modules/phonemenon && \

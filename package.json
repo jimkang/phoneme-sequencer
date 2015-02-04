@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "phonemenon": "^1.2.0",
+    "probable": "^1.3.0",
     "seedrandom": "^2.3.11"
   }
 }
