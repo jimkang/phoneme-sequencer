@@ -1,6 +1,6 @@
 var probableLib = require('probable');
 
-function createChooseNext(opts) {
+function createChooser(opts) {
   var probable = probableLib.createProbable({
     random: opts.random
   });
@@ -15,7 +15,7 @@ function createChooseNext(opts) {
     }
   })();
 
-  return function chooseNext(phoneme) {
+  return function chooseSuccessor(phoneme) {
     var next;
 
     if (phoneme in freqTables) {
@@ -27,5 +27,5 @@ function createChooseNext(opts) {
 }
 
 module.exports = {
-  createChooseNext: createChooseNext
+  createChooser: createChooser
 };

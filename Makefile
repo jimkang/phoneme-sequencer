@@ -2,7 +2,7 @@ test: test-choose
 	node tests/sequencertests.js
 
 test-choose: data/phoneme-follow-frequencies-in-syllables.js data/phoneme-preceding-frequencies-in-syllables.js
-	node tests/choosenexttests.js
+	node tests/choosetests.js
 
 data/phoneme-follow-frequencies-in-syllables.js:
 	cd node_modules/phonemenon && \

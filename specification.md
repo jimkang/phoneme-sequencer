@@ -35,7 +35,7 @@ completeSequence(base)
   - Adds that phoneme to the front of the new sequence.
 - Returns the new sequence.
 
-createChooseNext(random, followFreqsData)
+createChooser(random, followFreqsData)
 ----------------------
 
 > Given:
@@ -48,11 +48,7 @@ createChooseNext(random, followFreqsData)
 - Returns a function (phoneme) that:
   - Returns the next phoneme by calling `followFreqsTable[phoneme].roll()`;
 
-createChoosePrev(seed)
-----------------------
-
-Does the same thing as `createChooseNext` except that it uses `phoneme-preceding-frequencies-in-syllables.js` instead.
-
+*Can be used to create a `createChooseNext` or a `createChoosePrev`, by swapping `followFreqsData` to something like `phoneme-preceding-frequencies-in-syllables.js`.
 
 TODO: Store probability table data as arrays of ranges, not dictionaries.
 
