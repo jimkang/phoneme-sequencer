@@ -4,7 +4,7 @@ CMUDICT = $(PHMN)/ext/cmudict.0.7a
 test: test-choose
 	node tests/sequencertests.js
 
-test-choose: data/phoneme-follow-frequencies-in-syllables.js data/phoneme-preceding-frequencies-in-syllables.js
+test-choose: data/phoneme-follow-frequencies-in-syllables.json data/phoneme-preceding-frequencies-in-syllables.json
 	node tests/choosetests.js
 
 data/phoneme-follow-frequencies-in-syllables.json:

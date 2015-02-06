@@ -3,8 +3,12 @@ var createChooser = require('../choose').createChooser;
 var seedrandom = require('seedrandom');
 var jsonfile = require('jsonfile');
 
-var followFreqs = require('../data/phoneme-follow-frequencies-in-syllables');
-var precedeFreqs = require('../data/phoneme-preceding-frequencies-in-syllables');
+var followFreqs = jsonfile.readFileSync(__dirname +
+  '/../data/phoneme-follow-frequencies-in-syllables.json'
+);
+var precedeFreqs = jsonfile.readFileSync(__dirname +
+  '/../data/phoneme-preceding-frequencies-in-syllables.json'
+);
 
 var expectedForwardChainsForSeeds = {
   smidgeo: [
