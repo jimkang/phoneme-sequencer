@@ -1,6 +1,8 @@
 var test = require('tape');
 var createChooser = require('../choose').createChooser;
 var seedrandom = require('seedrandom');
+var jsonfile = require('jsonfile');
+
 var followFreqs = require('../data/phoneme-follow-frequencies-in-syllables');
 var precedeFreqs = require('../data/phoneme-preceding-frequencies-in-syllables');
 
