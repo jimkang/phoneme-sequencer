@@ -14,3 +14,8 @@ data/phoneme-follow-frequencies-in-syllables.json:
 data/phoneme-preceding-frequencies-in-syllables.json:
 	cat $(CMUDICT) | node $(PHMN)/phonemize-analyze-ff.js --reverse true \
 	--analyze-in-syllables > data/phoneme-preceding-frequencies-in-syllables.json
+
+data/loose-rhyme-follow-freqs.json: data/phoneme-follow-frequencies-in-syllables.json
+	cat data/phoneme-follow-frequencies-in-syllables.json | \
+	node build/filter-consecutive-vowels.js > \
+	data/loose-rhyme-follow-freqs.json
