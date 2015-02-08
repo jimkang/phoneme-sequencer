@@ -5,24 +5,21 @@ function createChooser(opts) {
     random: opts.random
   });
   var followFreqsData = opts.followFreqsData;
+  var guide = opts.guide;
   
-  var freqTables = {};
-
-  (function init() {
-    for (var phoneme in followFreqsData) {
-      var freqsDict = followFreqsData[phoneme];
-      freqTables[phoneme] = probable.createRangeTableFromDict(freqsDict);
-    }
-  })();
-
   return function chooseSuccessor(phoneme) {
-    var next;
+    if (phoneme in followFreqsData) {
+      followDict = followFreqsData[phoneme];
 
-    if (phoneme in freqTables) {
-      next = freqTables[phoneme].roll();
+      if (guide) {
+        followDict = guide.filterChoices({
+          currentPhoneme: phoneme,
+          probabilitiesForNextChoices: followDict
+        });
+      }
     }
 
-    return next;
+    return probable.createRangeTableFromDict(followDict).roll();
   };
 }
 

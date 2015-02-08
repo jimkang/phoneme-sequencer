@@ -6,6 +6,7 @@ test: test-choose
 
 test-choose: data/phoneme-follow-frequencies-in-syllables.json data/phoneme-preceding-frequencies-in-syllables.json
 	node tests/choosetests.js
+	node tests/guidedchoosetests.js
 
 data/phoneme-follow-frequencies-in-syllables.json:
 	cat $(CMUDICT) | node $(PHMN)/phonemize-analyze-ff.js \
