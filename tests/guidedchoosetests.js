@@ -114,3 +114,51 @@ Object.keys(expectedBackwardChainsForSeeds).forEach(function runTest(seed) {
     );
   });
 });
+
+test('Test from middle (forward direction)', function testForwardFromMiddle(t) {
+  t.plan(1);
+
+  var chooseNext = createChooser({
+    random: seedrandom('from middle, forward'),
+    followFreqsData: followFreqs,
+    guide: createGuide()
+  });
+
+  var phonemeChain = ['AE'];
+  var lastPhoneme = 'AE';
+
+  while (lastPhoneme !== 'END') {
+    phonemeChain.push(chooseNext(lastPhoneme));
+    lastPhoneme = phonemeChain[phonemeChain.length - 1];
+  }
+
+  t.deepEqual(
+    phonemeChain,
+    ['AE', 'D', 'END'],
+    'Produces the expected chain, moving forward from the middle.'
+  );
+});
+
+test('Test from middle (backward direction)', function testBackwardFromMiddle(t) {
+  t.plan(1);
+
+  var choosePrev = createChooser({
+    random: seedrandom('from middle, backward'),
+    followFreqsData: precedeFreqs,
+    guide: createGuide({direction: 'backward'})
+  });
+
+  var phonemeChain = ['AE'];
+  var lastPhoneme = 'AE';
+
+  while (lastPhoneme !== 'START') {
+    phonemeChain.unshift(choosePrev(lastPhoneme));
+    lastPhoneme = phonemeChain[0];
+  }
+
+  t.deepEqual(
+    phonemeChain,
+    ['START', 'S', 'IH', 'K', 'AE'],
+    'Produces the expected chain, moving backward from the middle.'
+  );
+});

@@ -35,13 +35,18 @@ function createFilterStateMachine(stateMachineOpts) {
       return filteredChoices;
     },
     'backward/no end yet': function backwardNoEndYetFilter(opts) {
-      if (opts.currentPhoneme === 'END') {
-        state = 'backward/no vowel yet';
-      }
+      state = 'backward/no vowel yet';
 
-      return filterObjectByKeys(
-        opts.probabilitiesForNextChoices, phonemeDoesNotLeaveWordHanging
-      );
+      if (opts.currentPhoneme === 'END') {
+        // If we're starting with the END psuedo-phoneme, then the penultimate 
+        // phoneme cannot be one that leaves the word "hanging".
+        return filterObjectByKeys(
+          opts.probabilitiesForNextChoices, phonemeDoesNotLeaveWordHanging
+        );
+      }
+      else {
+        return opts.probabilitiesForNextChoices
+      }
     },
     'backward/no vowel yet': function backwardNoVowelYet(opts) {
       var filteredChoices = opts.probabilitiesForNextChoices;
@@ -75,9 +80,13 @@ function createFilterStateMachine(stateMachineOpts) {
 };
 
 function createSingleVowelSyllableGuide(opts) {
+  var initialState = 'forward/no vowel yet';
+  if (opts && opts.direction === 'backward') {
+    initialState = 'backward/no end yet';
+  }
+
   var filterStateMachine = createFilterStateMachine({
-    initialState: (opts && opts.direction === 'backward') ? 
-      'backward/no end yet' : 'forward/no vowel yet'
+    initialState: initialState
   });
 
   return {
