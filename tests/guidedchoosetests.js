@@ -53,8 +53,10 @@ var expectedBackwardChainsForSeeds = {
   ],
   '1423015785022': [
     'START',
-    'R',
-    'IH',
+    'T',
+    'AH',
+    'N',
+    'T',
     'END'
   ]
 };
