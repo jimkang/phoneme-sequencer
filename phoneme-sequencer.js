@@ -12,6 +12,10 @@ function createSequenceCompleter(completerOpts) {
     throw new Error('Missing `choosePrev` parameter.');
   }
 
+  if (completerOpts.stopJudge) {
+    var stopJudge = completerOpts.stopJudge;
+  }
+
   var chooseNext = completerOpts.chooseNext;
   var choosePrev = completerOpts.choosePrev;
 
@@ -39,6 +43,13 @@ function createSequenceCompleter(completerOpts) {
 
       lastPhoneme = chooseNext(lastPhoneme);
       chooseNextCalls += 1;
+
+      if (stopJudge &&
+        stopJudge({nextPhonemeCandidate: lastPhoneme})) {
+
+        break;
+      }
+
       newSequence.push(lastPhoneme);
     }
 
@@ -52,6 +63,13 @@ function createSequenceCompleter(completerOpts) {
 
       firstPhoneme = choosePrev(firstPhoneme);
       choosePrevCalls += 1;
+
+      if (stopJudge &&
+        stopJudge({nextPhonemeCandidate: firstPhoneme})) {
+
+        break;
+      }
+
       newSequence.unshift(firstPhoneme);
     }
 

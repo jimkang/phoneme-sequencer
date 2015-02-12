@@ -158,7 +158,7 @@ test('Test from middle (backward direction)', function testBackwardFromMiddle(t)
 
   t.deepEqual(
     phonemeChain,
-    ['START', 'S', 'IH', 'K', 'AE'],
+    ['START', 'K', 'AE'],
     'Produces the expected chain, moving backward from the middle.'
   );
 });

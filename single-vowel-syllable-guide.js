@@ -37,6 +37,10 @@ function createFilterStateMachine(stateMachineOpts) {
     'backward/no end yet': function backwardNoEndYetFilter(opts) {
       state = 'backward/no vowel yet';
 
+      if (phonemeTypes.isVowelish(opts.currentPhoneme)) {
+        state = 'backward/vowel encountered';
+      }
+
       if (opts.currentPhoneme === 'END') {
         // If we're starting with the END psuedo-phoneme, then the penultimate 
         // phoneme cannot be one that leaves the word "hanging".
